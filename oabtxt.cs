@@ -112,7 +112,35 @@ class Program
             //Processes the input
             if (userInput == ListNum(options, "Read"))
             {
-                Console.WriteLine("The read function is currently being worked on.");
+                string filePath;
+                string fileContents = "";
+
+                bool validInput = false;
+                while (!validInput)
+                {
+                    //Prompts the user to enter the path to the file.
+                    Console.Write("Enter the path to the file:\n> ");
+                    filePath = Console.ReadLine();
+                    Console.Clear();
+
+                    //Tries to read the file
+                    try
+                    {
+                        fileContents = File.ReadAllText(filePath);
+                        validInput = true;
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Unable to read your file. Please press any key, try again, and make sure your input is correct.");
+                        Console.ReadKey();
+                        Console.Clear();
+                        continue;
+                    }
+                }
+
+                Console.WriteLine(CharEncoding.Decode(fileContents));
+                Console.ReadKey();
+                Console.Clear();
             }
             else if (userInput == ListNum(options, "Write"))
             {
