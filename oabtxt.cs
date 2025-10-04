@@ -90,10 +90,44 @@ public static class CharEncoding //Contains the data and functions for encoding 
 
 class Program
 {
+    static string ListNum(string[] arr, string val)
+    {
+        return Convert.ToString(Array.IndexOf(arr, val) + 1);
+    }
     public static void Main(string[] args)
     {
-        string encodedText = CharEncoding.Encode("Hello World!");
-        Console.WriteLine(encodedText);
-        Console.WriteLine(CharEncoding.Decode(encodedText));
+        string[] options = { "Read", "Write", "Exit" }; //Contains the menu options
+
+        bool runProgram = true;
+        while (runProgram)
+        {
+            for (int i = 0; i < options.Length; i++) //Displays the options to the user and get's input
+            {
+                Console.WriteLine(Convert.ToString(i + 1) + ". " + options[i]);
+            }
+            Console.Write("> ");
+            string userInput = Console.ReadLine();
+            Console.Clear();
+
+            //Processes the input
+            if (userInput == ListNum(options, "Read"))
+            {
+                Console.WriteLine("The read function is currently being worked on.");
+            }
+            else if (userInput == ListNum(options, "Write"))
+            {
+                Console.WriteLine("The write function is currently being worked on.");
+            }
+            else if (userInput == ListNum(options, "Exit"))
+            {
+                runProgram = false;
+            }
+            else
+            {
+                Console.WriteLine("You input was invalid. Press any key and please try again.");
+                Console.ReadKey(true);
+                Console.Clear();
+            }
+        }
     }
 }
