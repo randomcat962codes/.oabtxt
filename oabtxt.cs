@@ -51,12 +51,49 @@ public static class CharEncoding //Contains the data and functions for encoding 
 
         return result;
     }
+
+    public static string Decode(string text) //Decodes entered text
+    {
+        string result = "";
+
+        char charType = 'E'; //Used to store the type of character that is being processed.
+        string currentCharacter = ""; //Stores compoments of the character for interperating it
+        bool firstCharacter = true;
+
+        foreach (char x in text) //Looks at each character to process the information
+        {
+            if (inArray(encodings['C'], x)) //If our character is notation
+            {
+                if (!firstCharacter) //Processes the gathered information for a character
+                {
+                    result += encodings[charType][Convert.ToInt32(currentCharacter)];
+
+                    //Resets remaining information for next character
+                    currentCharacter = "";
+                }
+
+                charType = x;
+                firstCharacter = false;
+            }
+            else //If our character is a number
+            {
+                currentCharacter += x;
+            }
+        }
+
+        //Processes the final character
+        result += encodings[charType][Convert.ToInt32(currentCharacter)];
+
+        return result;
+    }
 }
 
 class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine(CharEncoding.Encode("Hello World!"));
+        string encodedText = CharEncoding.Encode("Hello World!");
+        Console.WriteLine(encodedText);
+        Console.WriteLine(CharEncoding.Decode(encodedText));
     }
 }
